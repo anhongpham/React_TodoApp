@@ -35,11 +35,14 @@ function App() {
       <h1>Simple To-Do List</h1>
       <div className="todoadd">
         <input value={input} onChange={(e) => setInput(e.target.value)} placeholder='add input here'/>
-        <button onclick='addTodo'>Add Todo</button>
+        <button onClick={addTodo} >Add Todo</button>
       </div>
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            {todo}
+            <button onClick={() => removeTodo(index)}>Delete</button>
+          </li>
         ))}
       </ul>
     </div>
