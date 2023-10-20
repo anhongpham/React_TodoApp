@@ -1,39 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-  // count: initial value of the state
-  // setCount: function to update the state
-  // useState: hook to create a state variable
-  // 0: initial value of the state
 
+  // add usestates to save input and todos
+  const [input, setInput] = React.useState('')
+  const [todos, setTodos] = React.useState([])
+ 
+
+  // When the component mounts, fetch todos from local storage
+
+
+  // addTodo Function
+  const addTodo = () => {
+    if(input) {
+      const newTodo = [...todos, input]
+      setTodos(newTodo)
+      setInput('')
+    }
+  }
+  
+
+  // Remove Todo Function
+  const removeTodo = (index) => {
+    const newTodo = [...todos]
+    newTodo.splice(index, 1)
+    setTodos(newTodo)
+  }
+ 
+
+  //create a UI with
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <h1>Simple To-Do List</h1>
+      <div className="todoadd">
+        <input value={input} onChange={(e) => setInput(e.target.value)} placeholder='add input here'/>
+        <button onclick='addTodo'>Add Todo</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
